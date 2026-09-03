@@ -89,7 +89,7 @@
     .entry {
       padding: 12px;
       display: grid;
-      grid-template-columns: minmax(240px, 1fr) 120px auto;
+      grid-template-columns: minmax(320px, 1fr) auto;
       gap: 8px;
       align-items: end;
     }
@@ -108,6 +108,99 @@
       background: #fff;
       color: var(--ink);
       padding: 10px;
+    }
+    .wealth-control {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 130px;
+      gap: 8px;
+      align-items: stretch;
+    }
+    .wealth-field {
+      position: relative;
+      min-height: 74px;
+      border: 1px solid #242824;
+      border-radius: var(--r);
+      background: #050505;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+    }
+    .wealth-groups {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      align-items: end;
+      justify-content: flex-end;
+      gap: clamp(4px, .8vw, 10px);
+      padding: 8px 14px 10px;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .wealth-group {
+      display: inline-block;
+      color: #fff !important;
+      font-size: clamp(10px, var(--group-size), 60px);
+      line-height: .9;
+      font-weight: 850;
+      letter-spacing: 0;
+      opacity: 1 !important;
+      transform-origin: right bottom;
+      transition: font-size .18s ease, transform .18s ease;
+    }
+    .wealth-field:focus-within .wealth-group:last-child { transform: translateY(-1px); }
+    #capital {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      height: 100%;
+      border: 0;
+      background: transparent;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      caret-color: #fff;
+      padding: 0 14px;
+      font-size: 28px;
+      font-weight: 800;
+      outline: 0;
+    }
+    .wealth-status {
+      min-height: 74px;
+      border: 1px solid #8f241b;
+      border-radius: var(--r);
+      background: var(--accent);
+      color: #fff;
+      padding: 10px;
+      display: grid;
+      align-content: center;
+      justify-items: start;
+      gap: 2px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .wealth-status small { font-size: 10px; font-weight: 800; opacity: .82; }
+    .wealth-status strong { font-size: clamp(20px, 2.2vw, 25px); line-height: 1; letter-spacing: 0; white-space: nowrap; }
+    .currency-flags {
+      display: grid;
+      grid-template-columns: repeat(4, 44px);
+      gap: 6px;
+    }
+    .currency-flag {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+    }
+    .currency-flag:hover { transform: translateY(-1px); }
+    .currency-flag.active,
+    .currency-flag[aria-pressed="true"] {
+      border-color: var(--ink);
+      box-shadow: inset 0 0 0 1px var(--ink);
     }
     .layout {
       display: grid;
@@ -379,6 +472,8 @@
       .topbar, .top-benchmark, .layout, .compare-grid, .readout, .rank-row, .table-row { grid-template-columns: 1fr; }
       aside { position: static; }
       nav { justify-content: start; }
+      .entry, .wealth-control { grid-template-columns: 1fr; }
+      .wealth-status { min-height: 58px; }
       .source-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 620px) {
@@ -407,28 +502,30 @@
     <section class="hero">
       <form class="panel entry" id="form">
         <label>Capital net
-          <input id="capital" inputmode="decimal" value="250000">
+          <div class="wealth-control">
+            <div class="wealth-field">
+              <div class="wealth-groups" id="capitalGroups" aria-hidden="true"></div>
+              <input id="capital" inputmode="numeric" autocomplete="off" value="0" aria-label="Capital net">
+            </div>
+            <div class="wealth-status" id="wealthStatus" aria-live="polite">
+              <small>Statut</small>
+              <strong>&gt; 5 %</strong>
+            </div>
+          </div>
         </label>
         <label>Devise
-          <select id="currency">
-            <option>CHF</option>
-            <option>EUR</option>
-            <option>USD</option>
-            <option>GBP</option>
-          </select>
+          <input type="hidden" id="currency" value="EUR">
+          <div class="currency-flags" role="group" aria-label="Devise">
+            <button type="button" class="currency-flag" data-currency="CHF" aria-label="CHF" aria-pressed="false">🇨🇭</button>
+            <button type="button" class="currency-flag active" data-currency="EUR" aria-label="EUR" aria-pressed="true">🇪🇺</button>
+            <button type="button" class="currency-flag" data-currency="USD" aria-label="USD" aria-pressed="false">🇺🇸</button>
+            <button type="button" class="currency-flag" data-currency="GBP" aria-label="GBP" aria-pressed="false">🇬🇧</button>
+          </div>
         </label>
-        <button class="primary">Calculer</button>
       </form>
     </section>
 
     <article class="panel viz" id="heat">
-      <div class="viz-head">
-        <div>
-          <h2>Carte thermique</h2>
-          <p>Vue type Coin360 : taille = population du niveau compare, couleur = multiplicateur vs mediane locale.</p>
-        </div>
-        <span class="tag warn">Heatmap</span>
-      </div>
       <div class="heatmap" id="heatmap"></div>
     </article>
 
@@ -533,6 +630,15 @@
       { p: 99.99, label: "Top 0.01%", value: 75000000 },
       { p: 99.999, label: "Top 0.001%", value: 500000000 }
     ];
+    const WORLD_STATUS_THRESHOLDS = [
+      { min: 500000000, label: "0.001 %" },
+      { min: 75000000, label: "0.01 %" },
+      { min: 35000000, label: "0.05 %" },
+      { min: 15000000, label: "0.1 %" },
+      { min: 6500000, label: "0.4 %" },
+      { min: 2500000, label: "1 %" },
+      { min: 650000, label: "5 %" }
+    ];
     const CONTEXTS = {
       country: [
         { id: "fr", flag: "🇫🇷", name: "France", source: "INSEE + WID demo", confidence: "control", unit: "menage/adulte", thresholds: [19000, 170000, 1800000, 10500000], scale: { population: 68000000, scope: "pays", source: "population demo" }, note: "plus fort que la mediane nationale, mais l'immobilier domine la lecture" },
@@ -583,11 +689,29 @@
     const DEFAULT_BENCHMARKS = ["global:world", "country:fr", "country:ch", "zone:geneva", "zone:nyc", "continent:europe"];
 
     const $ = (id) => document.getElementById(id);
-    const clean = (value) => Number(String(value).replace(/[^\d.,-]/g, "").replace(",", ".")) || 0;
+    const parseCapital = (value) => Math.max(0, Number(String(value).replace(/[^\d]/g, "")) || 0);
+    const clean = parseCapital;
     const spaced = (value) => String(value).replace(/[\u00a0\u202f]/g, " ");
     const number = (value, options = {}) => spaced(new Intl.NumberFormat("fr-FR", options).format(value));
     const money = (value, currency = $("currency").value) => number(value, { style: "currency", currency, maximumFractionDigits: 0 });
     const compact = (value) => number(value, { notation: "compact", maximumFractionDigits: 1 });
+    const formatCapitalText = (value) => {
+      const raw = Math.trunc(parseCapital(value));
+      return raw === 0 ? "0" : number(raw, { maximumFractionDigits: 0 });
+    };
+    const formatCapitalGroups = (value) => {
+      const raw = Math.trunc(parseCapital(value));
+      return raw === 0 ? ["0"] : formatCapitalText(raw).split(" ");
+    };
+    const groupStyle = (index, total) => {
+      const ratio = total <= 1 ? 1 : index / (total - 1);
+      const size = 10 + Math.pow(ratio, 1.9) * 50;
+      return { size };
+    };
+    const calculateWorldStatus = (usd) => {
+      const match = WORLD_STATUS_THRESHOLDS.find((item) => usd >= item.min);
+      return match ? match.label : "> 5 %";
+    };
     const logScale = (value, min, max, start, end) => start + (Math.log10(Math.max(value, min)) - Math.log10(min)) / (Math.log10(max) - Math.log10(min)) * (end - start);
     const norm = (value) => String(value).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     const topLabel = (percentile) => {
@@ -682,7 +806,12 @@
         <div class="metric"><small>Base comparable</small><b>${money(usd, "USD")}</b></div>
         <div class="metric"><small>Seuil suivant</small><b>${world.next ? world.next.label : "Sommet"}</b></div>
         <div class="metric"><small>A franchir</small><b>${world.next ? money(gap) : "0"}</b></div>
-        <div class="metric"><small>Statut</small><b>Demo</b></div>`;
+        <div class="metric"><small>Statut mondial</small><b>${calculateWorldStatus(usd)}</b></div>`;
+      renderWorldStatus(usd);
+    }
+
+    function renderWorldStatus(usd) {
+      $("wealthStatus").innerHTML = `<small>Statut</small><strong>${calculateWorldStatus(usd)}</strong>`;
     }
 
     function renderCards(usd) {
@@ -904,10 +1033,43 @@
       renderSources();
     }
 
+    function renderCapitalGroups(raw) {
+      const groups = formatCapitalGroups(raw);
+      const existing = new Map([...$("capitalGroups").children].map((node) => [node.dataset.slot, node]));
+      groups.forEach((group, index) => {
+        const slot = String(groups.length - index - 1);
+        const style = groupStyle(index, groups.length);
+        const node = existing.get(slot) || document.createElement("span");
+        node.className = "wealth-group";
+        node.dataset.slot = slot;
+        node.textContent = group;
+        node.style.setProperty("--group-size", `${style.size}px`);
+        node.style.color = "#fff";
+        node.style.opacity = "1";
+        if (!node.parentElement) $("capitalGroups").appendChild(node);
+        existing.delete(slot);
+      });
+      existing.forEach((node) => node.remove());
+      [...$("capitalGroups").children]
+        .sort((a, b) => Number(b.dataset.slot) - Number(a.dataset.slot))
+        .forEach((node) => $("capitalGroups").appendChild(node));
+    }
+
     function formatCapitalInput() {
       const capital = $("capital");
       const raw = clean(capital.value);
-      capital.value = raw ? number(raw, { maximumFractionDigits: 2 }) : "";
+      capital.value = formatCapitalText(raw);
+      renderCapitalGroups(raw);
+      requestAnimationFrame(() => {
+        capital.setSelectionRange(capital.value.length, capital.value.length);
+      });
+    }
+
+    function selectInitialZero() {
+      const capital = $("capital");
+      if (capital.value === "0") {
+        requestAnimationFrame(() => capital.setSelectionRange(0, capital.value.length));
+      }
     }
 
     function removeBenchmark(id) {
@@ -925,7 +1087,19 @@
       formatCapitalInput();
       update();
     });
-    $("currency").addEventListener("change", update);
+    $("capital").addEventListener("focus", selectInitialZero);
+    $("capital").addEventListener("click", selectInitialZero);
+    document.querySelectorAll("[data-currency]").forEach((button) => {
+      button.addEventListener("click", () => {
+        $("currency").value = button.dataset.currency;
+        document.querySelectorAll("[data-currency]").forEach((item) => {
+          const active = item === button;
+          item.classList.toggle("active", active);
+          item.setAttribute("aria-pressed", String(active));
+        });
+        update();
+      });
+    });
     $("benchmarkChoices").addEventListener("change", update);
     $("benchmarkSearch").addEventListener("input", filterBenchmarks);
     document.addEventListener("click", (event) => {
