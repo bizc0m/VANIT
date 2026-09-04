@@ -704,8 +704,10 @@
       return raw === 0 ? ["0"] : formatCapitalText(raw).split(" ");
     };
     const groupStyle = (index, total) => {
-      const ratio = total <= 1 ? 1 : index / (total - 1);
-      const size = 10 + Math.pow(ratio, 1.9) * 50;
+      const stepsFromLatest = total - index - 1;
+      const maxSize = 60;
+      const step = maxSize * 0.2;
+      const size = Math.max(step, maxSize - stepsFromLatest * step);
       return { size };
     };
     const calculateWorldStatus = (usd) => {
