@@ -794,7 +794,7 @@
           </div>
           <div class="capital-meta">
             <!-- Seuils mondiaux de patrimoine net par adulte : World Inequality Report 2026, fig. 1.7 — https://wid.world/document/world-inequality-report-2026/ -->
-            <small class="capital-source" id="capitalSource"><a href="https://www.ubs.com/global/en/media/display-page-ndp/en-20260630-gwr-2026.html" target="_blank" rel="noopener">UBS Global Wealth Report 2026</a>.</small>
+            <small class="capital-source" id="capitalSource"><a class="capital-source-arrow" href="https://www.ubs.com/global/en/media/display-page-ndp/en-20260630-gwr-2026.html" target="_blank" rel="noopener" aria-label="UBS Global Wealth Report 2026">&gt;</a></small>
             <input type="hidden" id="currency" value="USD">
             <div class="currency-flags" role="group" aria-label="Devise">
               <button type="button" class="currency-flag" data-currency="CHF" aria-label="CHF" aria-pressed="false">🇨🇭<span class="currency-code">CHF</span></button>
@@ -1355,9 +1355,6 @@
       const status = calculateWorldStatus(usd);
       $("wealthStatus").style.setProperty("--status-size", worldStatusSize(usd));
       $("wealthStatus").innerHTML = `<strong>${renderWorldStatusLabel(status)}</strong>`;
-      $("capitalSource").innerHTML = status.startsWith("0.")
-        ? `<a class="capital-source-arrow" href="https://www.ubs.com/global/en/media/display-page-ndp/en-20260630-gwr-2026.html" target="_blank" rel="noopener" aria-label="UBS Global Wealth Report 2026">&gt;</a>`
-        : `<a href="https://www.ubs.com/global/en/media/display-page-ndp/en-20260630-gwr-2026.html" target="_blank" rel="noopener">UBS Global Wealth Report 2026</a>.`;
     }
 
     function renderCards(usd) {
