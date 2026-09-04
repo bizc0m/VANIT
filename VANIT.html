@@ -1,7 +1,7 @@
-<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8">
+<!DOCTYPE html>
+<!-- saved from url=(0109)file:///Users/JOB/Documents/Codex/2026-09-02/prior-conversation-with-codex-conversation-role/VANIT/VANIT.html -->
+<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>VANIT</title>
   <style>
@@ -89,7 +89,7 @@
     .entry {
       padding: 12px;
       display: grid;
-      grid-template-columns: minmax(240px, 1fr) 120px auto;
+      grid-template-columns: minmax(320px, 1fr) auto;
       gap: 8px;
       align-items: end;
     }
@@ -108,6 +108,364 @@
       background: #fff;
       color: var(--ink);
       padding: 10px;
+    }
+    .wealth-control {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 130px;
+      gap: 8px;
+      align-items: stretch;
+    }
+    .wealth-field {
+      position: relative;
+      min-height: 74px;
+      border: 1px solid #242824;
+      border-radius: var(--r);
+      background: #050505;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+    }
+    .wealth-groups {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      align-items: end;
+      justify-content: flex-end;
+      gap: clamp(4px, .8vw, 10px);
+      padding: 8px 14px 10px;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .wealth-group {
+      display: inline-block;
+      color: #fff !important;
+      font-size: clamp(10px, var(--group-size), 60px);
+      line-height: .9;
+      font-weight: 850;
+      letter-spacing: 0;
+      opacity: 1 !important;
+      transform-origin: right bottom;
+      transition: font-size .18s ease, transform .18s ease;
+    }
+    .wealth-field:focus-within .wealth-group:last-child { transform: translateY(-1px); }
+    #capital {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      height: 100%;
+      border: 0;
+      background: transparent;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      caret-color: transparent;
+      padding: 0 14px;
+      font-size: 28px;
+      font-weight: 800;
+      outline: 0;
+    }
+    .wealth-status {
+      min-height: 74px;
+      border: 1px solid #8f241b;
+      border-radius: var(--r);
+      background: var(--accent);
+      color: #fff;
+      padding: 10px;
+      display: grid;
+      align-content: center;
+      justify-items: start;
+      gap: 2px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .wealth-status small { font-size: 10px; font-weight: 800; opacity: .82; }
+    .wealth-status strong { font-size: clamp(20px, 2.2vw, 25px); line-height: 1; letter-spacing: 0; white-space: nowrap; }
+    .capital-source {
+      display: block;
+      margin-top: 7px;
+      font-size: 11px;
+      line-height: 1.35;
+      color: var(--muted);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .capital-source a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+    .capital-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 7px;
+    }
+    .capital-meta .capital-source { margin-top: 0; }
+    .currency-flags {
+      display: grid;
+      grid-template-columns: repeat(4, 44px);
+      gap: 6px;
+    }
+    .currency-flag {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+    }
+    .currency-flag:hover { transform: translateY(-1px); }
+    .currency-flag.active,
+    .currency-flag[aria-pressed="true"] {
+      border-color: var(--ink);
+      box-shadow: inset 0 0 0 1px var(--ink);
+    }
+    .beta-page header,
+    .beta-page main > :not(.hero) {
+      display: none;
+    }
+    .beta-page main {
+      min-height: 100vh;
+      display: grid;
+      align-content: center;
+      gap: 12px;
+      width: min(1100px, calc(100% - 24px));
+      padding: 24px 0;
+    }
+    .beta-page .hero {
+      margin: 0;
+    }
+    .beta-alpha-link {
+      display: inline-flex;
+      width: fit-content;
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--panel);
+      color: var(--ink);
+      padding: 8px 12px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .beta-page {
+      --bg: #030303;
+      --ink: #fff;
+      --muted: #fff;
+      --panel: #030303;
+      --soft: #121212;
+      --line: #fff;
+      --accent: #c53d2c;
+      --r: 0;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    .beta-page main {
+      width: min(1160px, calc(100% - 28px));
+      align-content: start;
+      padding-top: clamp(42px, 8vh, 78px);
+    }
+    .beta-page .hero {
+      display: grid;
+      justify-items: center;
+      gap: clamp(28px, 5vh, 56px);
+      text-align: center;
+    }
+    .beta-brand-label {
+      display: grid;
+      justify-items: center;
+      gap: clamp(24px, 4.8vw, 58px);
+      color: #fff;
+      font-family: "Avenir Next Condensed", "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
+      font-weight: 800;
+      line-height: .84;
+      text-transform: uppercase;
+      text-rendering: geometricPrecision;
+      -webkit-font-smoothing: antialiased;
+    }
+    .beta-brand-label span {
+      display: block;
+      letter-spacing: .14em;
+    }
+    .beta-brand-label .no {
+      font-size: clamp(58px, 8.5vw, 124px);
+      letter-spacing: .03em;
+    }
+    .beta-brand-label .name {
+      font-size: clamp(145px, 20vw, 290px);
+      letter-spacing: .16em;
+      margin-right: -.16em;
+    }
+    .beta-brand-label .name .red-letter {
+      display: inline;
+      color: var(--accent);
+    }
+    .beta-brand-label .city {
+      font-size: clamp(30px, 4.6vw, 66px);
+      letter-spacing: .22em;
+      margin-right: -.22em;
+    }
+    .beta-page .entry {
+      width: min(100%, 1060px);
+      padding: 0;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      align-items: end;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+    .beta-page .wealth-control {
+      grid-template-columns: minmax(0, 1fr) clamp(220px, 22vw, 280px);
+      gap: 14px;
+    }
+    .beta-page label {
+      width: 100%;
+      color: #fff;
+      text-align: left;
+      font-family: "Avenir Next Condensed", "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
+      font-weight: 800;
+      letter-spacing: .16em;
+    }
+    .beta-page .wealth-field {
+      min-height: clamp(82px, 9vw, 112px);
+      border: 1px solid rgba(255,255,255,.72);
+      background: #030303;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+    }
+    .beta-page .wealth-groups {
+      padding: 10px clamp(18px, 3vw, 34px) 16px;
+      gap: clamp(8px, 1.2vw, 18px);
+    }
+    .beta-page .wealth-group {
+      font-family: "Avenir Next Condensed", "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
+      color: #fff !important;
+      font-weight: 800;
+      text-shadow: none;
+    }
+    .beta-page .wealth-group.is-placeholder {
+      width: 100%;
+      align-self: center;
+      margin: auto;
+      max-width: 100%;
+      color: #fff !important;
+      font-size: clamp(24px, 3.3vw, 45px);
+      line-height: 1.05;
+      text-align: center;
+      white-space: nowrap;
+      text-transform: none;
+      font-weight: 500;
+      letter-spacing: .08em;
+      opacity: .95;
+      animation: promptNeonFlicker 2.8s linear infinite;
+      text-shadow:
+        0 0 4px #fff,
+        0 0 9px rgba(255,255,255,.92),
+        0 0 18px rgba(255,255,255,.72),
+        0 0 34px rgba(85,255,160,.46),
+        0 0 58px rgba(85,255,160,.32);
+    }
+    @keyframes promptNeonFlicker {
+      0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        opacity: 1;
+        text-shadow:
+          0 0 4px #fff,
+          0 0 9px rgba(255,255,255,.92),
+          0 0 18px rgba(255,255,255,.72),
+          0 0 34px rgba(85,255,160,.46),
+          0 0 58px rgba(85,255,160,.32);
+      }
+      20%, 24%, 55% {
+        opacity: .42;
+        text-shadow:
+          0 0 2px rgba(255,255,255,.45),
+          0 0 8px rgba(85,255,160,.18);
+      }
+    }
+    .beta-page .wealth-status {
+      min-height: clamp(82px, 9vw, 112px);
+      min-width: clamp(220px, 22vw, 280px);
+      border-color: #8f241b;
+      background: var(--accent);
+      font-family: "Avenir Next Condensed", "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
+      display: grid;
+      place-items: center;
+      padding: 0 10px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .beta-page .wealth-status strong {
+      max-width: 100%;
+      font-size: clamp(38px, var(--status-size, 4.8vw), 72px);
+      font-weight: 950;
+      line-height: .86;
+      white-space: nowrap;
+    }
+    .beta-page .status-t {
+      color: #030303;
+    }
+    .beta-page .currency-flags {
+      grid-template-columns: repeat(4, auto);
+      gap: 10px;
+      justify-content: end;
+    }
+    .beta-page .currency-flag {
+      width: auto;
+      min-width: 86px;
+      height: 52px;
+      border: 0;
+      border-radius: 0;
+      background: #030303;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 0 12px;
+      font-size: 26px;
+      filter: grayscale(1) contrast(1.4);
+      box-shadow: none;
+      transition: filter .16s ease, transform .16s ease, box-shadow .16s ease;
+    }
+    .beta-page .currency-code {
+      margin-left: 0;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+    .beta-page .currency-flag:hover,
+    .beta-page .currency-flag.active,
+    .beta-page .currency-flag[aria-pressed="true"] {
+      filter: none;
+    }
+    .beta-page .currency-flag.active,
+    .beta-page .currency-flag[aria-pressed="true"] {
+      background: transparent;
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 2px 0 #fff;
+      transform: translateY(-1px);
+    }
+    .beta-page .beta-alpha-link {
+      position: fixed;
+      top: 18px;
+      right: 22px;
+      min-width: auto;
+      min-height: auto;
+      justify-content: center;
+      align-items: center;
+      margin-top: 0;
+      border: 0;
+      border-radius: 0;
+      background: #030303;
+      color: #fff;
+      padding: 4px 0;
+      font-family: "Avenir Next Condensed", "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
+      font-size: 14px;
+      letter-spacing: .18em;
     }
     .layout {
       display: grid;
@@ -379,6 +737,8 @@
       .topbar, .top-benchmark, .layout, .compare-grid, .readout, .rank-row, .table-row { grid-template-columns: 1fr; }
       aside { position: static; }
       nav { justify-content: start; }
+      .entry, .wealth-control { grid-template-columns: 1fr; }
+      .wealth-status { min-height: 58px; }
       .source-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 620px) {
@@ -388,7 +748,7 @@
     }
   </style>
 </head>
-<body>
+<body class="beta-page">
   <header>
     <div class="topbar">
       <div class="brand"><b>VANIT</b><br><span>Index patrimonial</span></div>
@@ -405,39 +765,104 @@
 
   <main>
     <section class="hero">
+      <div class="beta-brand-label" aria-hidden="true">
+        <span class="no" data-text=""></span>
+        <span class="name" data-text="VANIT">VANI<span class="red-letter">T</span></span>
+        <span class="city" data-text=""></span>
+      </div>
       <form class="panel entry" id="form">
-        <label>Capital net
-          <input id="capital" inputmode="decimal" value="250000">
+        <label>
+          <div class="wealth-control">
+            <div class="wealth-field">
+              <div class="wealth-groups" id="capitalGroups" aria-hidden="true"><span class="wealth-group" data-slot="4" style="--group-size: 12px; color: rgb(255, 255, 255); opacity: 1;">1</span><span class="wealth-group" data-slot="3" style="--group-size: 24px; color: rgb(255, 255, 255); opacity: 1;">000</span><span class="wealth-group" data-slot="2" style="--group-size: 36px; color: rgb(255, 255, 255); opacity: 1;">000</span><span class="wealth-group" data-slot="1" style="--group-size: 48px; color: rgb(255, 255, 255); opacity: 1;">000</span><span class="wealth-group" data-slot="0" style="--group-size: 60px; color: rgb(255, 255, 255); opacity: 1;">000</span></div>
+              <input id="capital" inputmode="numeric" autocomplete="off" value="" aria-label="Capital">
+            </div>
+            <div class="wealth-status" id="wealthStatus" aria-live="polite" style="--status-size: 72px;"><strong>99.99 %</strong></div>
+          </div>
+          <div class="capital-meta">
+            <!-- Seuils mondiaux de patrimoine net par adulte : World Inequality Report 2026, fig. 1.7 — https://wid.world/document/world-inequality-report-2026/ -->
+            <small class="capital-source"><a href="https://www.ubs.com/global/en/media/display-page-ndp/en-20260630-gwr-2026.html" target="_blank" rel="noopener">UBS Global Wealth Report 2026</a>.</small>
+            <input type="hidden" id="currency" value="USD">
+            <div class="currency-flags" role="group" aria-label="Devise">
+              <button type="button" class="currency-flag" data-currency="CHF" aria-label="CHF" aria-pressed="false">🇨🇭<span class="currency-code">CHF</span></button>
+              <button type="button" class="currency-flag" data-currency="EUR" aria-label="EUR" aria-pressed="false">🇪🇺<span class="currency-code">EUR</span></button>
+              <button type="button" class="currency-flag active" data-currency="USD" aria-label="USD" aria-pressed="true">🇺🇸<span class="currency-code">USD</span></button>
+              <button type="button" class="currency-flag" data-currency="GBP" aria-label="GBP" aria-pressed="false">🇬🇧<span class="currency-code">GBP</span></button>
+            </div>
+          </div>
         </label>
-        <label>Devise
-          <select id="currency">
-            <option>CHF</option>
-            <option>EUR</option>
-            <option>USD</option>
-            <option>GBP</option>
-          </select>
-        </label>
-        <button class="primary">Calculer</button>
       </form>
+      <a class="beta-alpha-link" href="https://github.com/bizc0m/VANIT/blob/Alpha-Global/VANIT.html" aria-label="Voir Alpha-Global">Alpha</a>
     </section>
 
     <article class="panel viz" id="heat">
-      <div class="viz-head">
-        <div>
-          <h2>Carte thermique</h2>
-          <p>Vue type Coin360 : taille = population du niveau compare, couleur = multiplicateur vs mediane locale.</p>
-        </div>
-        <span class="tag warn">Heatmap</span>
+      <div class="heatmap" id="heatmap">
+        <article class="tile" data-remove-benchmark="global:world" style="left:0%;top:0%;width:calc(62.784500391376994% - 6px);height:calc(100% - 6px);--tile-color:#c53d2c">
+          <div class="tile-top"><small>Monde</small><span>🌍</span><button class="tile-remove" type="button" data-remove="global:world" aria-label="Retirer Monde" title="Retirer">×</button></div>
+          <div>
+            <h3>Monde</h3>
+            <b>83 333 333,3x mediane</b>
+          </div>
+          <div class="tile-bottom"><small>8,1 Md hab. · monde</small><small>population demo</small></div>
+        </article>
+      
+        <article class="tile" data-remove-benchmark="country:fr" style="left:62.784500391376994%;top:0%;width:calc(37.215499608623006% - 6px);height:calc(19.630860697027238% - 6px);--tile-color:#c53d2c">
+          <div class="tile-top"><small>Pays</small><span>🇫🇷</span><button class="tile-remove" type="button" data-remove="country:fr" aria-label="Retirer France" title="Retirer">×</button></div>
+          <div>
+            <h3>France</h3>
+            <b>52 631 578,9x mediane</b>
+          </div>
+          <div class="tile-bottom"><small>68 M hab. · pays</small><small>population demo</small></div>
+        </article>
+      
+        <article class="tile compact" data-remove-benchmark="country:ch" style="left:62.784500391376994%;top:19.630860697027238%;width:calc(12.942080502139515% - 6px);height:calc(22.72161603466266% - 6px);--tile-color:#c53d2c">
+          <div class="tile-top"><small>Pays</small><span>🇨🇭</span><button class="tile-remove" type="button" data-remove="country:ch" aria-label="Retirer Suisse" title="Retirer">×</button></div>
+          <div>
+            <h3>Suisse</h3>
+            <b>11 764 705,9x mediane</b>
+          </div>
+          <div class="tile-bottom"><small>9 M hab. · pays</small><small>population demo</small></div>
+        </article>
+      
+        <article class="tile compact" data-remove-benchmark="zone:geneva" style="left:75.72658089351651%;top:19.630860697027238%;width:calc(6.244653195220408% - 6px);height:calc(22.72161603466266% - 6px);--tile-color:#c53d2c">
+          <div class="tile-top"><small>Ville</small><span>🇨🇭</span><button class="tile-remove" type="button" data-remove="zone:geneva" aria-label="Retirer Geneve" title="Retirer">×</button></div>
+          <div>
+            <h3>Geneve</h3>
+            <b>10 752 688,2x mediane</b>
+          </div>
+          <div class="tile-bottom"><small>620 k hab. · 240 km²</small><small>2,6 k/km²</small></div>
+        </article>
+      
+        <article class="tile" data-remove-benchmark="zone:nyc" style="left:81.97123408873692%;top:19.630860697027238%;width:calc(18.028765911263083% - 6px);height:calc(22.72161603466266% - 6px);--tile-color:#c53d2c">
+          <div class="tile-top"><small>Ville</small><span>🇺🇸</span><button class="tile-remove" type="button" data-remove="zone:nyc" aria-label="Retirer New York" title="Retirer">×</button></div>
+          <div>
+            <h3>New York</h3>
+            <b>4 545 454,5x mediane</b>
+          </div>
+          <div class="tile-bottom"><small>18,8 M hab. · 12 k km²</small><small>1,6 k/km²</small></div>
+        </article>
+      
+        <article class="tile" data-remove-benchmark="continent:europe" style="left:62.784500391376994%;top:42.3524767316899%;width:calc(37.215499608623006% - 6px);height:calc(57.6475232683101% - 6px);--tile-color:#c53d2c">
+          <div class="tile-top"><small>Continent</small><span>🇪🇺</span><button class="tile-remove" type="button" data-remove="continent:europe" aria-label="Retirer Europe" title="Retirer">×</button></div>
+          <div>
+            <h3>Europe</h3>
+            <b>14 285 714,3x mediane</b>
+          </div>
+          <div class="tile-bottom"><small>745 M hab. · continent</small><small>population demo</small></div>
+        </article>
       </div>
-      <div class="heatmap" id="heatmap"></div>
     </article>
 
     <section class="top-benchmark">
       <div class="top-controls">
         <article class="panel card">
           <h2>Score global</h2>
-          <div class="score" id="scoreBox"></div>
-          <div class="metrics" id="metrics"></div>
+          <div class="score" id="scoreBox"><span>Position mondiale estimee</span><strong>Top 0.001%</strong><span>Top 0.001% · VANIT 990/999</span></div>
+          <div class="metrics" id="metrics">
+        <div class="metric"><small>Base comparable</small><b>1 000 000 000 000 $US</b></div>
+        <div class="metric"><small>Seuil suivant</small><b>Sommet</b></div>
+        <div class="metric"><small>A franchir</small><b>0</b></div>
+        <div class="metric"><small>Statut mondial</small><b>0.1 %</b></div></div>
         </article>
 
         <article class="panel card">
@@ -445,7 +870,35 @@
           <label>Recherche
             <input class="search" id="benchmarkSearch" placeholder="Pays, ville, zone, continent">
           </label>
-          <div class="filters" id="benchmarkChoices"></div>
+          <div class="filters" id="benchmarkChoices">
+        <section class="check-group">
+          <div class="check-title">Monde</div>
+          <div class="check-list">
+            <label class="check" draggable="true" data-bench-id="global:world" data-search="monde monde monde global world monde wid demo  🌍"><input type="checkbox" data-benchmark="" value="global:world" checked=""><span>🌍 Monde</span></label>
+          </div>
+        </section>
+      
+        <section class="check-group">
+          <div class="check-title">Pays</div>
+          <div class="check-list">
+            <label class="check" draggable="true" data-bench-id="country:fr" data-search="pays pays pays country nation france insee + wid demo  🇫🇷"><input type="checkbox" data-benchmark="" value="country:fr" checked=""><span>🇫🇷 France</span></label><label class="check" draggable="true" data-bench-id="country:ch" data-search="pays pays pays country nation suisse snb + wid demo  🇨🇭"><input type="checkbox" data-benchmark="" value="country:ch" checked=""><span>🇨🇭 Suisse</span></label><label class="check" draggable="true" data-bench-id="country:us" data-search="pays pays pays country nation etats-unis fed dfa / scf demo  🇺🇸"><input type="checkbox" data-benchmark="" value="country:us"><span>🇺🇸 Etats-Unis</span></label><label class="check" draggable="true" data-bench-id="country:uk" data-search="pays pays pays country nation royaume-uni ons was + hmrc demo  🇬🇧"><input type="checkbox" data-benchmark="" value="country:uk"><span>🇬🇧 Royaume-Uni</span></label><label class="check" draggable="true" data-bench-id="country:de" data-search="pays pays pays country nation allemagne hfcs + wid demo  🇩🇪"><input type="checkbox" data-benchmark="" value="country:de"><span>🇩🇪 Allemagne</span></label><label class="check" draggable="true" data-bench-id="country:jp" data-search="pays pays pays country nation japon oecd + wid demo  🇯🇵"><input type="checkbox" data-benchmark="" value="country:jp"><span>🇯🇵 Japon</span></label>
+          </div>
+        </section>
+      
+        <section class="check-group">
+          <div class="check-title">Villes monde</div>
+          <div class="check-list">
+            <label class="check" draggable="true" data-bench-id="zone:geneva" data-search="villes monde ville ville villes ville monde zone city global city geneve suisse locale demo finance, diplomatie, immobilier tendu 🇨🇭"><input type="checkbox" data-benchmark="" value="zone:geneva" checked=""><span>🇨🇭 Geneve</span></label><label class="check" draggable="true" data-bench-id="zone:zurich" data-search="villes monde ville ville villes ville monde zone city global city zurich suisse locale demo finance, tech, equity professionnelle 🇨🇭"><input type="checkbox" data-benchmark="" value="zone:zurich"><span>🇨🇭 Zurich</span></label><label class="check" draggable="true" data-bench-id="zone:zug" data-search="villes monde ville ville villes ville monde zone city global city zoug suisse locale demo holdings, fondateurs, fiscalite attractive 🇨🇭"><input type="checkbox" data-benchmark="" value="zone:zug"><span>🇨🇭 Zoug</span></label><label class="check" draggable="true" data-bench-id="zone:london" data-search="villes monde ville ville villes ville monde zone city global city londres ons + mercer demo finance globale, patrimoine international 🇬🇧"><input type="checkbox" data-benchmark="" value="zone:london"><span>🇬🇧 Londres</span></label><label class="check" draggable="true" data-bench-id="zone:nyc" data-search="villes monde ville ville villes ville monde zone city global city new york fed + mercer demo wall street, equity, bonus, actifs liquides 🇺🇸"><input type="checkbox" data-benchmark="" value="zone:nyc" checked=""><span>🇺🇸 New York</span></label><label class="check" draggable="true" data-bench-id="zone:monaco" data-search="villes monde ville ville villes ville monde zone city global city monaco narrative privee demo ultra-haut patrimoine, residence, rarete fonciere 🇲🇨"><input type="checkbox" data-benchmark="" value="zone:monaco"><span>🇲🇨 Monaco</span></label><label class="check" draggable="true" data-bench-id="zone:paris" data-search="villes monde ville ville villes ville monde zone city global city paris insee + knight frank demo immobilier prime, patrimoine familial, luxe 🇫🇷"><input type="checkbox" data-benchmark="" value="zone:paris"><span>🇫🇷 Paris</span></label><label class="check" draggable="true" data-bench-id="zone:annecy" data-search="villes monde ville ville villes ville monde zone city global city annecy insee + ghsl schema demo haute-savoie, lac, montagne, frontalier suisse 🇫🇷"><input type="checkbox" data-benchmark="" value="zone:annecy"><span>🇫🇷 Annecy</span></label><label class="check" draggable="true" data-bench-id="zone:singapore" data-search="villes monde ville ville villes ville monde zone city global city singapour credit suisse/ubs + mercer demo hub asie, finance, entrepreneurs, residence 🇸🇬"><input type="checkbox" data-benchmark="" value="zone:singapore"><span>🇸🇬 Singapour</span></label><label class="check" draggable="true" data-bench-id="zone:dubai" data-search="villes monde ville ville villes ville monde zone city global city dubai knight frank + narrative demo residence internationale, immobilier, entrepreneurs 🇦🇪"><input type="checkbox" data-benchmark="" value="zone:dubai"><span>🇦🇪 Dubai</span></label><label class="check" draggable="true" data-bench-id="zone:hong-kong" data-search="villes monde ville ville villes ville monde zone city global city hong kong hk statistics + ubs demo finance asie, immobilier rare, dynasties familiales 🇭🇰"><input type="checkbox" data-benchmark="" value="zone:hong-kong"><span>🇭🇰 Hong Kong</span></label><label class="check" draggable="true" data-bench-id="zone:tokyo" data-search="villes monde ville ville villes ville monde zone city global city tokyo oecd/wid + mercer demo grande metropole, patrimoine immobilier et financier 🇯🇵"><input type="checkbox" data-benchmark="" value="zone:tokyo"><span>🇯🇵 Tokyo</span></label><label class="check" draggable="true" data-bench-id="zone:sao-paulo" data-search="villes monde ville ville villes ville monde zone city global city sao paulo wid + narrative demo capital prive, inegalites, entreprises familiales 🇧🇷"><input type="checkbox" data-benchmark="" value="zone:sao-paulo"><span>🇧🇷 Sao Paulo</span></label>
+          </div>
+        </section>
+      
+        <section class="check-group">
+          <div class="check-title">Continents</div>
+          <div class="check-list">
+            <label class="check" draggable="true" data-bench-id="continent:europe" data-search="continents continent continent continents europe wid + ecb/oecd demo  🇪🇺"><input type="checkbox" data-benchmark="" value="continent:europe" checked=""><span>🇪🇺 Europe</span></label><label class="check" draggable="true" data-bench-id="continent:north-america" data-search="continents continent continent continents amerique du nord fed/oecd/wid demo  🌎"><input type="checkbox" data-benchmark="" value="continent:north-america"><span>🌎 Amerique du Nord</span></label><label class="check" draggable="true" data-bench-id="continent:asia" data-search="continents continent continent continents asie wid/oecd demo  🌏"><input type="checkbox" data-benchmark="" value="continent:asia"><span>🌏 Asie</span></label><label class="check" draggable="true" data-bench-id="continent:latin-america" data-search="continents continent continent continents amerique latine wid demo  🌎"><input type="checkbox" data-benchmark="" value="continent:latin-america"><span>🌎 Amerique latine</span></label><label class="check" draggable="true" data-bench-id="continent:africa" data-search="continents continent continent continents afrique wid demo  🌍"><input type="checkbox" data-benchmark="" value="continent:africa"><span>🌍 Afrique</span></label>
+          </div>
+        </section>
+      </div>
           <p class="empty" id="benchmarkEmpty">Aucun benchmark trouve.</p>
           <p class="drag-hint">Glisser une ligne pour changer l'ordre des seuils.</p>
         </article>
@@ -459,7 +912,7 @@
           </div>
           <span class="tag control">Log scale</span>
         </div>
-        <svg id="thresholdSvg" viewBox="0 0 980 360" role="img" aria-label="Seuils comparatifs pays zone continent"></svg>
+        <svg id="thresholdSvg" viewBox="0 0 980 580" role="img" aria-label="Seuils comparatifs pays zone continent"><text class="label" x="20" y="56">🌍 Monde</text><text class="meta" x="20" y="76">Monde</text><rect class="bar active" style="--row-color:#111312" x="155" y="38" width="77.65919777700304" height="9" rx="2"></rect><text class="meta" x="239.65919777700304" y="47">mediane</text><rect class="bar active" style="--row-color:#111312" x="155" y="51" width="197.87191320689476" height="9" rx="2"></rect><text class="meta" x="359.87191320689476" y="60">top 10</text><rect class="bar active" style="--row-color:#111312" x="155" y="64" width="277.0556565325739" height="9" rx="2"></rect><text class="meta" x="439.0556565325739" y="73">top 1</text><rect class="bar active" style="--row-color:#111312" x="155" y="77" width="343.9710278957875" height="9" rx="2"></rect><text class="meta" x="505.9710278957875" y="86">top 0.1</text><line class="pin-line" style="--row-color:#111312" x1="913.7922399203103" x2="913.7922399203103" y1="30" y2="88"></line><circle class="pin" style="--row-color:#111312" cx="913.7922399203103" cy="29" r="6"></circle><text class="label" x="20" y="138">🇫🇷 France</text><text class="meta" x="20" y="158">Pays</text><rect class="bar active" style="--row-color:#245d85" x="155" y="120" width="94.8209747910845" height="9" rx="2"></rect><text class="meta" x="256.8209747910845" y="129">mediane</text><rect class="bar active" style="--row-color:#245d85" x="155" y="133" width="176.65987919367228" height="9" rx="2"></rect><text class="meta" x="338.6598791936723" y="142">top 10</text><rect class="bar active" style="--row-color:#245d85" x="155" y="146" width="264.78728457010834" height="9" rx="2"></rect><text class="meta" x="426.78728457010834" y="155">top 1</text><rect class="bar active" style="--row-color:#245d85" x="155" y="159" width="330.6505812959454" height="9" rx="2"></rect><text class="meta" x="492.6505812959454" y="168">top 0.1</text><line class="pin-line" style="--row-color:#245d85" x1="913.7922399203103" x2="913.7922399203103" y1="112" y2="170"></line><circle class="pin" style="--row-color:#245d85" cx="913.7922399203103" cy="111" r="6"></circle><text class="label" x="20" y="220">🇨🇭 Suisse</text><text class="meta" x="20" y="240">Pays</text><rect class="bar active" style="--row-color:#245d85" x="155" y="202" width="150.7734799346713" height="9" rx="2"></rect><text class="meta" x="312.7734799346713" y="211">mediane</text><rect class="bar active" style="--row-color:#245d85" x="155" y="215" width="226.74760182134668" height="9" rx="2"></rect><text class="meta" x="388.7476018213467" y="224">top 10</text><rect class="bar active" style="--row-color:#245d85" x="155" y="228" width="310.9756440598276" height="9" rx="2"></rect><text class="meta" x="472.9756440598276" y="237">top 1</text><rect class="bar active" style="--row-color:#245d85" x="155" y="241" width="367.280806968736" height="9" rx="2"></rect><text class="meta" x="529.280806968736" y="250">top 0.1</text><line class="pin-line" style="--row-color:#245d85" x1="913.7922399203103" x2="913.7922399203103" y1="194" y2="252"></line><circle class="pin" style="--row-color:#245d85" cx="913.7922399203103" cy="193" r="6"></circle><text class="label" x="20" y="302">🇨🇭 Geneve</text><text class="meta" x="20" y="322">Ville</text><rect class="bar active" style="--row-color:#c53d2c" x="155" y="284" width="154.13270295714534" height="9" rx="2"></rect><text class="meta" x="316.13270295714534" y="293">mediane</text><rect class="bar active" style="--row-color:#c53d2c" x="155" y="297" width="238.90088531110723" height="9" rx="2"></rect><text class="meta" x="400.90088531110723" y="306">top 10</text><rect class="bar active" style="--row-color:#c53d2c" x="155" y="310" width="322.758993882565" height="9" rx="2"></rect><text class="meta" x="484.758993882565" y="319">top 1</text><rect class="bar active" style="--row-color:#c53d2c" x="155" y="323" width="378.6856449719262" height="9" rx="2"></rect><text class="meta" x="540.6856449719262" y="332">top 0.1</text><line class="pin-line" style="--row-color:#c53d2c" x1="913.7922399203103" x2="913.7922399203103" y1="276" y2="334"></line><circle class="pin" style="--row-color:#c53d2c" cx="913.7922399203103" cy="275" r="6"></circle><text class="label" x="20" y="384">🇺🇸 New York</text><text class="meta" x="20" y="404">Ville</text><rect class="bar active" style="--row-color:#c53d2c" x="155" y="366" width="186.2888114769936" height="9" rx="2"></rect><text class="meta" x="348.2888114769936" y="375">mediane</text><rect class="bar active" style="--row-color:#c53d2c" x="155" y="379" width="264.78728457010834" height="9" rx="2"></rect><text class="meta" x="426.78728457010834" y="388">top 10</text><rect class="bar active" style="--row-color:#c53d2c" x="155" y="392" width="342.7049344501395" height="9" rx="2"></rect><text class="meta" x="504.7049344501395" y="401">top 1</text><rect class="bar active" style="--row-color:#c53d2c" x="155" y="405" width="401.5007654246807" height="9" rx="2"></rect><text class="meta" x="563.5007654246807" y="414">top 0.1</text><line class="pin-line" style="--row-color:#c53d2c" x1="913.7922399203103" x2="913.7922399203103" y1="358" y2="416"></line><circle class="pin" style="--row-color:#c53d2c" cx="913.7922399203103" cy="357" r="6"></circle><text class="label" x="20" y="466">🇪🇺 Europe</text><text class="meta" x="20" y="486">Continent</text><rect class="bar active" style="--row-color:#3d7355" x="155" y="448" width="143.52249450284017" height="9" rx="2"></rect><text class="meta" x="305.5224945028402" y="457">mediane</text><rect class="bar active" style="--row-color:#3d7355" x="155" y="461" width="221.18169227984322" height="9" rx="2"></rect><text class="meta" x="383.1816922798432" y="470">top 10</text><rect class="bar active" style="--row-color:#3d7355" x="155" y="474" width="301.4175102428988" height="9" rx="2"></rect><text class="meta" x="463.4175102428988" y="483">top 1</text><rect class="bar active" style="--row-color:#3d7355" x="155" y="487" width="358.27432542488737" height="9" rx="2"></rect><text class="meta" x="520.2743254248874" y="496">top 0.1</text><line class="pin-line" style="--row-color:#3d7355" x1="913.7922399203103" x2="913.7922399203103" y1="440" y2="498"></line><circle class="pin" style="--row-color:#3d7355" cx="913.7922399203103" cy="439" r="6"></circle><text class="meta" x="20" y="564">Lecture : plus la barre est longue, plus la marche est haute dans ce territoire.</text></svg>
       </article>
     </section>
 
@@ -472,7 +925,7 @@
             <button data-lens="ranking">Classement</button>
             <button data-lens="table">Tableau</button>
           </div>
-          <p class="muted" id="modeText" style="margin-top:10px"></p>
+          <p class="muted" id="modeText" style="margin-top:10px">Cartes : lecture rapide avec drapeaux, rang estime et seuil suivant.</p>
         </article>
       </aside>
 
@@ -486,14 +939,137 @@
             <span class="tag">Decision</span>
           </div>
           <div class="view active" id="cardsView">
-            <div class="compare-grid" id="compareCards"></div>
-            <div class="readout" id="readout"></div>
+            <div class="compare-grid" id="compareCards"><article class="benchmark">
+          <div class="bench-head"><span class="tag core">Monde · core</span><span class="flag">🌍</span></div>
+          <h3>Monde</h3>
+          <div class="bench-main"><strong>Exceptionnel</strong><span class="pct">Top 0.1%<br>8 333 333 333% de la mediane</span></div>
+          <p class="nextline"><span>Deja au sommet du modele demo</span><span class="mult">83 333 333,3x mediane</span></p>
+          <p class="muted">0 pour changer de categorie · WID demo</p>
+          <p><b>Info</b> · adulte</p>
+          <div class="track"><i style="--w:99.9%"></i></div>
+          <p class="muted">socle global VANIT</p>
+        </article><article class="benchmark">
+          <div class="bench-head"><span class="tag control">Pays · control</span><span class="flag">🇫🇷</span></div>
+          <h3>France</h3>
+          <div class="bench-main"><strong>Exceptionnel</strong><span class="pct">Top 0.1%<br>5 263 157 895% de la mediane</span></div>
+          <p class="nextline"><span>Deja au sommet du modele demo</span><span class="mult">52 631 578,9x mediane</span></p>
+          <p class="muted">0 pour changer de categorie · INSEE + WID demo</p>
+          <p><b>Info</b> · menage/adulte</p>
+          <div class="track"><i style="--w:99.9%"></i></div>
+          <p class="muted">plus fort que la mediane nationale, mais l'immobilier domine la lecture</p>
+        </article><article class="benchmark">
+          <div class="bench-head"><span class="tag control">Pays · control</span><span class="flag">🇨🇭</span></div>
+          <h3>Suisse</h3>
+          <div class="bench-main"><strong>Exceptionnel</strong><span class="pct">Top 0.1%<br>1 176 470 588% de la mediane</span></div>
+          <p class="nextline"><span>Deja au sommet du modele demo</span><span class="mult">11 764 705,9x mediane</span></p>
+          <p class="muted">0 pour changer de categorie · SNB + WID demo</p>
+          <p><b>Info</b> · menage/adulte</p>
+          <div class="track"><i style="--w:99.9%"></i></div>
+          <p class="muted">benchmark dur : mediane elevee et seuils hauts</p>
+        </article><article class="benchmark">
+          <div class="bench-head"><span class="tag narrative">Ville · narrative</span><span class="flag">🇨🇭</span></div>
+          <h3>Geneve</h3>
+          <div class="bench-main"><strong>Exceptionnel</strong><span class="pct">Top 0.1%<br>1 075 268 817% de la mediane</span></div>
+          <p class="nextline"><span>Deja au sommet du modele demo</span><span class="mult">10 752 688,2x mediane</span></p>
+          <p class="muted">0 pour changer de categorie · Suisse locale demo</p>
+          <p><b>Info</b> · Finance, diplomatie, immobilier tendu</p>
+          <div class="track"><i style="--w:99.9%"></i></div>
+          <p class="muted">zone internationale, immobilier et fortunes familiales relevants</p>
+        </article><article class="benchmark">
+          <div class="bench-head"><span class="tag narrative">Ville · narrative</span><span class="flag">🇺🇸</span></div>
+          <h3>New York</h3>
+          <div class="bench-main"><strong>Exceptionnel</strong><span class="pct">Top 0.1%<br>454 545 455% de la mediane</span></div>
+          <p class="nextline"><span>Deja au sommet du modele demo</span><span class="mult">4 545 454,5x mediane</span></p>
+          <p class="muted">0 pour changer de categorie · Fed + Mercer demo</p>
+          <p><b>Info</b> · Wall Street, equity, bonus, actifs liquides</p>
+          <div class="track"><i style="--w:99.9%"></i></div>
+          <p class="muted">bonus, equity et marches liquides deplacent la perception</p>
+        </article><article class="benchmark">
+          <div class="bench-head"><span class="tag control">Continent · control</span><span class="flag">🇪🇺</span></div>
+          <h3>Europe</h3>
+          <div class="bench-main"><strong>Exceptionnel</strong><span class="pct">Top 0.1%<br>1 428 571 429% de la mediane</span></div>
+          <p class="nextline"><span>Deja au sommet du modele demo</span><span class="mult">14 285 714,3x mediane</span></p>
+          <p class="muted">0 pour changer de categorie · WID + ECB/OECD demo</p>
+          <p><b>Info</b> · adulte</p>
+          <div class="track"><i style="--w:99.9%"></i></div>
+          <p class="muted">Suisse, Luxembourg et Nord-Europe tirent la barre vers le haut</p>
+        </article></div>
+            <div class="readout" id="readout">
+        <div><h3>Ou ca pese le plus</h3><p>🌍 Monde · Exceptionnel</p></div>
+        <div><h3>Ou ca pese le moins</h3><p>🌍 Monde · Exceptionnel</p></div>
+        <div><h3>Marche la plus proche</h3><p>🌍 Monde · aucune</p></div></div>
           </div>
           <div class="view" id="rankingView">
-            <div class="rank-list" id="rankList"></div>
+            <div class="rank-list" id="rankList"><div class="rank-row">
+          <b>#1</b>
+          <span>🌍 Monde<br><small class="muted">Monde · adulte</small></span>
+          <b>Exceptionnel<br><small class="muted">Top 0.1%</small></b>
+          <span class="muted">sommet demo<br><b class="mult">83 333 333,3x mediane</b></span>
+        </div><div class="rank-row">
+          <b>#2</b>
+          <span>🇫🇷 France<br><small class="muted">Pays · menage/adulte</small></span>
+          <b>Exceptionnel<br><small class="muted">Top 0.1%</small></b>
+          <span class="muted">sommet demo<br><b class="mult">52 631 578,9x mediane</b></span>
+        </div><div class="rank-row">
+          <b>#3</b>
+          <span>🇨🇭 Suisse<br><small class="muted">Pays · menage/adulte</small></span>
+          <b>Exceptionnel<br><small class="muted">Top 0.1%</small></b>
+          <span class="muted">sommet demo<br><b class="mult">11 764 705,9x mediane</b></span>
+        </div><div class="rank-row">
+          <b>#4</b>
+          <span>🇨🇭 Geneve<br><small class="muted">Ville · ville monde</small></span>
+          <b>Exceptionnel<br><small class="muted">Top 0.1%</small></b>
+          <span class="muted">sommet demo<br><b class="mult">10 752 688,2x mediane</b></span>
+        </div><div class="rank-row">
+          <b>#5</b>
+          <span>🇺🇸 New York<br><small class="muted">Ville · ville monde</small></span>
+          <b>Exceptionnel<br><small class="muted">Top 0.1%</small></b>
+          <span class="muted">sommet demo<br><b class="mult">4 545 454,5x mediane</b></span>
+        </div><div class="rank-row">
+          <b>#6</b>
+          <span>🇪🇺 Europe<br><small class="muted">Continent · adulte</small></span>
+          <b>Exceptionnel<br><small class="muted">Top 0.1%</small></b>
+          <span class="muted">sommet demo<br><b class="mult">14 285 714,3x mediane</b></span>
+        </div></div>
           </div>
           <div class="view" id="tableView">
-            <div class="compare-table" id="compareTable"></div>
+            <div class="compare-table" id="compareTable"><div class="table-row head"><span></span><span>Territoire</span><span>% local</span><span>Prochaine marche</span><span>Source</span></div><div class="table-row">
+          <span class="flag">🌍</span>
+          <span>Monde<br><small class="muted">Monde</small></span>
+          <b>Top 0.1%<br><small class="muted">8 333 333 333% de la mediane</small></b>
+          <span>Sommet demo<br><b class="mult">83 333 333,3x mediane</b></span>
+          <span class="muted">WID demo</span>
+        </div><div class="table-row">
+          <span class="flag">🇫🇷</span>
+          <span>France<br><small class="muted">Pays</small></span>
+          <b>Top 0.1%<br><small class="muted">5 263 157 895% de la mediane</small></b>
+          <span>Sommet demo<br><b class="mult">52 631 578,9x mediane</b></span>
+          <span class="muted">INSEE + WID demo</span>
+        </div><div class="table-row">
+          <span class="flag">🇨🇭</span>
+          <span>Suisse<br><small class="muted">Pays</small></span>
+          <b>Top 0.1%<br><small class="muted">1 176 470 588% de la mediane</small></b>
+          <span>Sommet demo<br><b class="mult">11 764 705,9x mediane</b></span>
+          <span class="muted">SNB + WID demo</span>
+        </div><div class="table-row">
+          <span class="flag">🇨🇭</span>
+          <span>Geneve<br><small class="muted">Ville</small></span>
+          <b>Top 0.1%<br><small class="muted">1 075 268 817% de la mediane</small></b>
+          <span>Sommet demo<br><b class="mult">10 752 688,2x mediane</b></span>
+          <span class="muted">Suisse locale demo</span>
+        </div><div class="table-row">
+          <span class="flag">🇺🇸</span>
+          <span>New York<br><small class="muted">Ville</small></span>
+          <b>Top 0.1%<br><small class="muted">454 545 455% de la mediane</small></b>
+          <span>Sommet demo<br><b class="mult">4 545 454,5x mediane</b></span>
+          <span class="muted">Fed + Mercer demo</span>
+        </div><div class="table-row">
+          <span class="flag">🇪🇺</span>
+          <span>Europe<br><small class="muted">Continent</small></span>
+          <b>Top 0.1%<br><small class="muted">1 428 571 429% de la mediane</small></b>
+          <span>Sommet demo<br><b class="mult">14 285 714,3x mediane</b></span>
+          <span class="muted">WID + ECB/OECD demo</span>
+        </div></div>
           </div>
         </article>
 
@@ -505,7 +1081,7 @@
             </div>
             <span class="tag warn">Demo</span>
           </div>
-          <svg id="curveSvg" viewBox="0 0 980 300" role="img" aria-label="Distribution mondiale logarithmique"></svg>
+          <svg id="curveSvg" viewBox="0 0 980 300" role="img" aria-label="Distribution mondiale logarithmique"><line class="gridline" x1="64" x2="900" y1="249.59588262281292" y2="249.59588262281292"></line><text class="meta" x="10" y="253.59588262281292">1 000 $US</text><line class="gridline" x1="64" x2="900" y1="225.23641525356956" y2="225.23641525356956"></line><text class="meta" x="10" y="229.23641525356956">10 000 $US</text><line class="gridline" x1="64" x2="900" y1="200.8769478843262" y2="200.8769478843262"></line><text class="meta" x="10" y="204.8769478843262">100 000 $US</text><line class="gridline" x1="64" x2="900" y1="176.51748051508284" y2="176.51748051508284"></line><text class="meta" x="10" y="180.51748051508284">1 000 000 $US</text><line class="gridline" x1="64" x2="900" y1="152.1580131458395" y2="152.1580131458395"></line><text class="meta" x="10" y="156.1580131458395">10 000 000 $US</text><line class="gridline" x1="64" x2="900" y1="127.79854577659613" y2="127.79854577659613"></line><text class="meta" x="10" y="131.79854577659614">100 000 000 $US</text><line class="gridline" x1="64" x2="900" y1="103.43907840735278" y2="103.43907840735278"></line><text class="meta" x="10" y="107.43907840735278">1 000 000 000 $US</text><path class="curve" style="stroke:#111312;opacity:.78" d="M105.8,247.7 L273.2,234.9 L482.4,223.3 L817.2,189.3 L892.5,166.8 L900.0,147.9"></path><circle class="pin" style="--row-color:#111312" cx="900" cy="30.360676299622696" r="5"></circle><text class="meta" x="718" y="38" style="fill:#111312">🌍 Monde · Top 0.1%</text><path class="curve" style="stroke:#245d85;opacity:.78" d="M105.8,242.8 L273.2,230.1 L482.4,218.4 L817.2,195.3 L892.5,170.3 L900.0,151.6"></path><circle class="pin" style="--row-color:#245d85" cx="900" cy="30.360676299622696" r="5"></circle><text class="meta" x="718" y="58" style="fill:#245d85">🇫🇷 France · Top 0.1%</text><path class="curve" style="stroke:#245d85;opacity:.78" d="M105.8,227.0 L273.2,214.2 L482.4,202.6 L817.2,181.1 L892.5,157.2 L900.0,141.3"></path><circle class="pin" style="--row-color:#245d85" cx="900" cy="30.360676299622696" r="5"></circle><text class="meta" x="718" y="78" style="fill:#245d85">🇨🇭 Suisse · Top 0.1%</text><path class="curve" style="stroke:#c53d2c;opacity:.78" d="M105.8,226.0 L273.2,213.3 L482.4,201.6 L817.2,177.6 L892.5,153.9 L900.0,138.0"></path><circle class="pin" style="--row-color:#c53d2c" cx="900" cy="30.360676299622696" r="5"></circle><text class="meta" x="718" y="98" style="fill:#c53d2c">🇨🇭 Geneve · Top 0.1%</text><path class="curve" style="stroke:#c53d2c;opacity:.78" d="M105.8,216.9 L273.2,204.2 L482.4,192.5 L817.2,170.3 L892.5,148.2 L900.0,131.6"></path><circle class="pin" style="--row-color:#c53d2c" cx="900" cy="30.360676299622696" r="5"></circle><text class="meta" x="718" y="118" style="fill:#c53d2c">🇺🇸 New York · Top 0.1%</text><path class="curve" style="stroke:#3d7355;opacity:.78" d="M105.8,229.0 L273.2,216.3 L482.4,204.7 L817.2,182.7 L892.5,159.9 L900.0,143.8"></path><circle class="pin" style="--row-color:#3d7355" cx="900" cy="30.360676299622696" r="5"></circle><text class="meta" x="718" y="138" style="fill:#3d7355">🇪🇺 Europe · Top 0.1%</text><text class="meta" x="64" y="286">Chaque courbe suit les seuils du benchmark coche. Point = votre montant dans ce benchmark.</text></svg>
         </article>
 
         <article class="panel viz" id="sources">
@@ -515,7 +1091,7 @@
               <p>VANIT doit citer source, unite statistique, concept de patrimoine, annee et statut observe/impute.</p>
             </div>
           </div>
-          <div class="source-grid" id="sourceGrid"></div>
+          <div class="source-grid" id="sourceGrid"><article class="source"><span class="tag core">core</span><h3>WID / DINA</h3><p class="muted">Percentiles mondiaux, seuils, top shares. Unite adulte equal-split.</p></article><article class="source"><span class="tag core">core</span><h3>Fed DFA / SCF</h3><p class="muted">USA. Menages, actifs, dettes, groupes de richesse.</p></article><article class="source"><span class="tag control">control</span><h3>ECB HFCS / DWA</h3><p class="muted">Europe. Menages, patrimoine net, vagues et comptes distributionnels.</p></article><article class="source"><span class="tag narrative">narrative</span><h3>UBS / Allianz / Mercer</h3><p class="muted">Contexte, villes, tendances. Pas de calcul officiel VANIT.</p></article><article class="source"><span class="tag core">core</span><h3>GHSL UCDB R2024A</h3><p class="muted">Centres urbains harmonises : population, surface, densite. Sert a dimensionner les villes.</p></article></div>
         </article>
       </div>
     </section>
@@ -523,15 +1099,43 @@
 
   <script>
     const FX = { USD: 1, CHF: 1.13, EUR: 1.08, GBP: 1.27 };
+    /*
+      Sources VANIT a remplacer par donnees consolidees avant publication :
+      - WID / World Inequality Database : https://wid.world/
+        Usage prevu : percentiles mondiaux, top shares, unites adulte/equal-split.
+      - DINA Guidelines : https://wid.world/document/dinaguidelines-v2/
+        Usage prevu : definition patrimoine net, unites statistiques, comparabilite.
+      - Forbes Real-Time Billionaires, lu le 2026-09-04 :
+        https://www.forbes.com/real-time-billionaires/
+        Repere extreme : Elon Musk environ 879,8 Md$ au 2026-09-01 selon Forbes.
+      - Forbes profile Elon Musk, lu le 2026-09-04 :
+        https://www.forbes.com/profile/elon-musk/
+      - Bloomberg Billionaires Index / Elon Musk, lu le 2026-09-04 :
+        https://www.bloomberg.com/billionaires/profiles/elon-r-musk/
+        Repere alternatif observe : 663 Md$ au 2026-05-06 dans l'extrait Bloomberg.
+      Note : les seuils ci-dessous restent des valeurs demo, pas une base officielle.
+    */
     const WORLD = [
-      { p: 50, label: "Mediane", value: 12000 },
-      { p: 75, label: "Top 25%", value: 80000 },
-      { p: 90, label: "Top 10%", value: 300000 },
-      { p: 95, label: "Top 5%", value: 650000 },
-      { p: 99, label: "Top 1%", value: 2500000 },
-      { p: 99.9, label: "Top 0.1%", value: 15000000 },
-      { p: 99.99, label: "Top 0.01%", value: 75000000 },
-      { p: 99.999, label: "Top 0.001%", value: 500000000 }
+      { p: 50, label: "Mediane", value: 29200 },
+      { p: 90, label: "Top 10%", value: 265600 },
+      { p: 99, label: "Top 1%", value: 2000000 },
+      { p: 99.9, label: "Top 0.1%", value: 7000000 },
+      { p: 99.99, label: "Top 0.01%", value: 38000000 },
+      { p: 99.999, label: "Top 0.001%", value: 254000000 },
+      { p: 99.9999, label: "Top 0.0001%", value: 1000000000 }
+    ];
+    const CAPITAL_PROMPT = "Enter your capital to star";
+    const WORLD_STATUS_POINTS = [
+      { value: 0, top: 100 },
+      { value: 10000, top: 59 },
+      { value: 29200, top: 50 },
+      { value: 265600, top: 10 },
+      { value: 2000000, top: 1 },
+      { value: 7000000, top: 0.1 },
+      { value: 38000000, top: 0.01 },
+      { value: 254000000, top: 0.001 },
+      { value: 1000000000, top: 0.0001 },
+      { value: 1100000000, top: 0.00009 }
     ];
     const CONTEXTS = {
       country: [
@@ -583,11 +1187,59 @@
     const DEFAULT_BENCHMARKS = ["global:world", "country:fr", "country:ch", "zone:geneva", "zone:nyc", "continent:europe"];
 
     const $ = (id) => document.getElementById(id);
-    const clean = (value) => Number(String(value).replace(/[^\d.,-]/g, "").replace(",", ".")) || 0;
+    const parseCapital = (value) => Math.max(0, Number(String(value).replace(/[^\d]/g, "")) || 0);
+    const clean = parseCapital;
     const spaced = (value) => String(value).replace(/[\u00a0\u202f]/g, " ");
     const number = (value, options = {}) => spaced(new Intl.NumberFormat("fr-FR", options).format(value));
     const money = (value, currency = $("currency").value) => number(value, { style: "currency", currency, maximumFractionDigits: 0 });
     const compact = (value) => number(value, { notation: "compact", maximumFractionDigits: 1 });
+    const formatCapitalText = (value) => {
+      const raw = Math.trunc(parseCapital(value));
+      return raw === 0 ? "0" : number(raw, { maximumFractionDigits: 0 });
+    };
+    const formatCapitalGroups = (value) => {
+      const raw = Math.trunc(parseCapital(value));
+      return raw === 0 ? ["0"] : formatCapitalText(raw).split(" ");
+    };
+    const groupStyle = (index, total) => {
+      const stepsFromLatest = total - index - 1;
+      const maxSize = 60;
+      const step = maxSize * 0.2;
+      const size = Math.max(step, maxSize - stepsFromLatest * step);
+      return { size };
+    };
+    const interpolate = (value, from, to) => {
+      const start = Math.log10(Math.max(1, from.value));
+      const end = Math.log10(Math.max(1, to.value));
+      const current = Math.log10(Math.max(1, value));
+      const ratio = end === start ? 1 : Math.max(0, Math.min(1, (current - start) / (end - start)));
+      return from.top + (to.top - from.top) * ratio;
+    };
+    const formatTopPercent = (value) => {
+      value = Math.max(0.00009, value);
+      if (value >= 10) return `${value.toFixed(2)} %`;
+      if (value >= 1) return `${value.toFixed(1)} %`;
+      const decimals = Math.min(6, Math.max(1, Math.ceil(-Math.log10(value)) + 1));
+      return `${value.toFixed(decimals).replace(/0+$/, "")} %`;
+    };
+    const calculateWorldStatus = (usd) => {
+      if (usd <= WORLD_STATUS_POINTS[0].value) return "99.99 %";
+      for (let index = 1; index < WORLD_STATUS_POINTS.length; index += 1) {
+        const previous = WORLD_STATUS_POINTS[index - 1];
+        const current = WORLD_STATUS_POINTS[index];
+        if (usd <= current.value) return formatTopPercent(interpolate(usd, previous, current));
+      }
+      return "0.00009 %";
+    };
+    const renderWorldStatusLabel = (label) => {
+      if (!label.startsWith("0.")) return label;
+      const digits = label.slice(2).replace(/\s*%$/, "");
+      return `<span class="status-t">T</span>${digits}`;
+    };
+    const worldStatusSize = (usd) => {
+      const label = calculateWorldStatus(usd);
+      return `${label.length > 6 ? 58 : 72}px`;
+    };
     const logScale = (value, min, max, start, end) => start + (Math.log10(Math.max(value, min)) - Math.log10(min)) / (Math.log10(max) - Math.log10(min)) * (end - start);
     const norm = (value) => String(value).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     const topLabel = (percentile) => {
@@ -682,7 +1334,14 @@
         <div class="metric"><small>Base comparable</small><b>${money(usd, "USD")}</b></div>
         <div class="metric"><small>Seuil suivant</small><b>${world.next ? world.next.label : "Sommet"}</b></div>
         <div class="metric"><small>A franchir</small><b>${world.next ? money(gap) : "0"}</b></div>
-        <div class="metric"><small>Statut</small><b>Demo</b></div>`;
+        <div class="metric"><small>Statut mondial</small><b>${renderWorldStatusLabel(calculateWorldStatus(usd))}</b></div>`;
+      renderWorldStatus(usd);
+    }
+
+    function renderWorldStatus(usd) {
+      const status = calculateWorldStatus(usd);
+      $("wealthStatus").style.setProperty("--status-size", worldStatusSize(usd));
+      $("wealthStatus").innerHTML = `<strong>${renderWorldStatusLabel(status)}</strong>`;
     }
 
     function renderCards(usd) {
@@ -896,7 +1555,8 @@
     }
 
     function update() {
-      const usd = clean($("capital").value) * FX[$("currency").value];
+      const currency = $("currency").value || "USD";
+      const usd = clean($("capital").value) * FX[currency];
       renderScore(usd);
       renderCards(usd);
       renderThresholds(usd);
@@ -904,10 +1564,52 @@
       renderSources();
     }
 
+    function renderCapitalGroups(raw) {
+      const groups = formatCapitalGroups(raw);
+      const existing = new Map([...$("capitalGroups").children].map((node) => [node.dataset.slot, node]));
+      groups.forEach((group, index) => {
+        const slot = String(groups.length - index - 1);
+        const style = groupStyle(index, groups.length);
+        const node = existing.get(slot) || document.createElement("span");
+        node.className = "wealth-group";
+        node.dataset.slot = slot;
+        node.textContent = group;
+        node.style.setProperty("--group-size", `${style.size}px`);
+        node.style.color = "#fff";
+        node.style.opacity = "1";
+        if (!node.parentElement) $("capitalGroups").appendChild(node);
+        existing.delete(slot);
+      });
+      existing.forEach((node) => node.remove());
+      [...$("capitalGroups").children]
+        .sort((a, b) => Number(b.dataset.slot) - Number(a.dataset.slot))
+        .forEach((node) => $("capitalGroups").appendChild(node));
+    }
+
+    function renderCapitalPrompt() {
+      $("capitalGroups").innerHTML = `<span class="wealth-group is-placeholder" data-slot="prompt">${CAPITAL_PROMPT}</span>`;
+    }
+
     function formatCapitalInput() {
       const capital = $("capital");
+      if (!/\d/.test(capital.value)) {
+        capital.value = "";
+        renderCapitalPrompt();
+        return;
+      }
       const raw = clean(capital.value);
-      capital.value = raw ? number(raw, { maximumFractionDigits: 2 }) : "";
+      capital.value = formatCapitalText(raw);
+      renderCapitalGroups(raw);
+      requestAnimationFrame(() => {
+        capital.setSelectionRange(capital.value.length, capital.value.length);
+      });
+    }
+
+    function selectInitialZero() {
+      const capital = $("capital");
+      if (capital.value === "0") {
+        requestAnimationFrame(() => capital.setSelectionRange(0, capital.value.length));
+      }
     }
 
     function removeBenchmark(id) {
@@ -925,7 +1627,19 @@
       formatCapitalInput();
       update();
     });
-    $("currency").addEventListener("change", update);
+    $("capital").addEventListener("focus", selectInitialZero);
+    $("capital").addEventListener("click", selectInitialZero);
+    document.querySelectorAll("[data-currency]").forEach((button) => {
+      button.addEventListener("click", () => {
+        $("currency").value = button.dataset.currency;
+        document.querySelectorAll("[data-currency]").forEach((item) => {
+          const active = item === button;
+          item.classList.toggle("active", active);
+          item.setAttribute("aria-pressed", String(active));
+        });
+        update();
+      });
+    });
     $("benchmarkChoices").addEventListener("change", update);
     $("benchmarkSearch").addEventListener("input", filterBenchmarks);
     document.addEventListener("click", (event) => {
@@ -952,8 +1666,10 @@
     populate();
     wireBenchmarkDrag();
     $("modeText").textContent = LENS_TEXT.cards;
+    $("currency").value = $("currency").value || "USD";
     formatCapitalInput();
     update();
   </script>
-</body>
-</html>
+
+
+</body></html>
