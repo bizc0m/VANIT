@@ -407,6 +407,24 @@
     .beta-page .status-t {
       color: #030303;
     }
+    .beta-page .status-report {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #030303;
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: .1em;
+      text-decoration: none;
+    }
+    .beta-page .status-report-arrow {
+      animation: statusReportBlink .85s steps(1, end) infinite;
+    }
+    @keyframes statusReportBlink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
     .beta-page .currency-flags {
       grid-template-columns: repeat(4, auto);
       gap: 10px;
@@ -1341,7 +1359,10 @@
     function renderWorldStatus(usd) {
       const status = calculateWorldStatus(usd);
       $("wealthStatus").style.setProperty("--status-size", worldStatusSize(usd));
-      $("wealthStatus").innerHTML = `<strong>${renderWorldStatusLabel(status)}</strong>`;
+      const report = status.startsWith("0.")
+        ? `<a class="status-report" href="https://www.ubs.com/global/en/media/display-page-ndp/en-20260630-gwr-2026.html" target="_blank" rel="noopener"><span class="status-report-arrow">&gt;</span><span>Report 2026</span></a>`
+        : "";
+      $("wealthStatus").innerHTML = `<strong>${renderWorldStatusLabel(status)}</strong>${report}`;
     }
 
     function renderCards(usd) {
