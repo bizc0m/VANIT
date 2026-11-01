@@ -3,7 +3,7 @@
 <html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>VANIT</title>
+  <title>VANIT 2.0 — Équivalences</title>
   <style>
     :root {
       --bg: #f4f4f1;
@@ -760,7 +760,21 @@
       .score strong { font-size: 38px; }
     }
   </style>
-</head>
+<style>
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.beta-page main>.v2-shell{display:block!important;width:100%;margin-top:12px}.beta-page .hero{gap:25px}.beta-page .beta-brand-label .name{font-size:clamp(76px,18vw,210px)}
+.beta-page .wealth-control{grid-template-columns:minmax(0,1fr) minmax(90px,27%);gap:8px}.beta-page .wealth-status{min-width:0}.beta-page .wealth-status strong{font-size:clamp(20px,5vw,60px)}
+.beta-page .wealth-group{font-size:clamp(9px,var(--group-size),6vw)}.beta-page .wealth-groups{padding:10px;gap:4px}.beta-page .wealth-group.is-placeholder{font-size:clamp(11px,2.6vw,35px)}
+#capital:focus{color:#fff;-webkit-text-fill-color:#fff;caret-color:#fff;font-size:clamp(16px,3vw,30px)}.wealth-field:focus-within .wealth-groups{visibility:hidden}
+.v2-shell{--muted:#bfbfbf;--line:#424242;text-align:left}.v2-shell h2{font-size:clamp(23px,4vw,35px);font-weight:800;letter-spacing:-.03em;margin:20px 0}.v2-shell h3{font-size:13px;letter-spacing:.03em}
+.v2-nav{display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid #444;padding-bottom:16px}.v2-nav button,.v2-shell button{min-height:44px;border:1px solid #555;background:#080808;color:white;padding:10px 16px}.v2-nav button[aria-pressed=true]{background:#c53d2c;border-color:#c53d2c}
+.v2-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}.v2-controls input,.v2-controls select{background:#121212;color:white;border-color:#555;min-height:44px}.v2-shell label{font-size:11px!important;letter-spacing:.03em!important}
+.v2-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.v2-card{border:1px solid #444;padding:20px;min-width:0}.v2-card strong{display:block;font-size:clamp(27px,4vw,48px);margin:15px 0;overflow-wrap:anywhere;color:#fff}.v2-card small,.v2-note{color:#bfbfbf;font-size:12px;line-height:1.5}.v2-card details{border-top:1px solid #444;padding-top:12px;margin-top:18px;font-size:13px;overflow-wrap:anywhere}.v2-card summary{cursor:pointer;min-height:32px}.v2-shell a{color:white;text-underline-offset:3px}.v2-card details p{margin:9px 0}
+.v2-view[hidden],.v2-controls[hidden],.v2-shell [hidden]{display:none!important}.v2-demo{font-size:11px;color:#c5c5c5;text-align:left;max-width:1060px;width:100%;margin-top:-12px}.v2-version{font-size:11px;letter-spacing:.15em;color:#aaa}.v2-shell input[type=range]{accent-color:#c53d2c}.v2-shell :focus-visible{outline:2px solid #fff;outline-offset:3px}
+body.advanced main>:not(.hero):not(.v2-shell){display:block}body.advanced .top-benchmark,body.advanced .layout{background:#f4f4f1;color:#111;padding:12px;--ink:#111;--muted:#626762;--line:#d3d1c8;--panel:white;--soft:#e8e7e1}body.advanced .layout{display:grid!important}
+@media(max-width:600px){.v2-grid,.v2-controls{grid-template-columns:1fr}.beta-page main{padding-top:30px}.beta-page .currency-flags{gap:0}.beta-page .currency-flag{min-width:58px;padding:0 4px}.beta-page .capital-meta{gap:5px}.v2-card{padding:16px}.beta-page .wealth-status,.beta-page .wealth-field{min-height:76px}.v2-nav button{flex:1;padding:9px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style></head>
 <body class="beta-page">
   <header>
     <div class="topbar">
@@ -805,6 +819,7 @@
           </div>
         </label>
       </form>
+      <p class="v2-demo">Rang mondial de démonstration · seuils et changes du modèle historique non validés. Les équivalences sourcées sont séparées ci-dessous.</p>
       <a class="beta-alpha-link" href="https://github.com/bizc0m/VANIT/blob/Alpha-Global/VANIT.html" aria-label="Voir Alpha-Global">Alpha</a>
     </section>
 
@@ -1108,6 +1123,16 @@
         </article>
       </div>
     </section>
+<section class="v2-shell" aria-label="Équivalences">
+<p class="v2-version">VERSION 2.0</p><h2>Votre capital, en équivalences.</h2>
+<div class="v2-nav" role="group" aria-label="Rubriques"><button type="button" data-eq="wealth" aria-pressed="true">Patrimoine</button><button type="button" data-eq="salary" aria-pressed="false">Salaires</button><button type="button" data-eq="saving" aria-pressed="false">Épargne</button><button type="button" data-eq="info" aria-pressed="false">Info</button></div>
+<div class="v2-controls" id="territoryControls"><label>Continent<select id="eqContinent"><option value="all">Tous les continents</option><option>Europe</option><option>Amérique du Nord</option><option>Asie</option><option>Afrique</option><option>Amérique du Sud</option><option>Océanie</option></select></label><label>Pays<select id="eqCountry"></select></label></div>
+<div class="v2-controls" id="fxControls" hidden><label>1 unité de votre devise en USD<input id="eqFx" type="number" min="0.000001" step="any" placeholder="Taux documenté requis"></label><label>Date du taux<input id="eqFxDate" type="date"></label><label>URL de la source du taux<input id="eqFxSource" type="url" placeholder="https://…"></label><p class="v2-note">Aucun taux démo n’est utilisé ici. Renseignez un taux daté pour convertir les équivalences patrimoniales.</p></div>
+<div class="v2-controls" id="incomeControls" hidden><label>Revenu annuel dans la devise saisie<input id="eqIncome" type="number" min="0" step="any" placeholder="Saisissez votre référence"></label><label>Nature du revenu<select id="eqIncomeKind"><option value="personal">Revenu net personnel</option><option value="median">Salaire médian net saisi</option><option value="mean">Salaire moyen net saisi</option><option value="gross">Salaire brut saisi</option></select></label><label>Source ou contexte<input id="eqIncomeSource" maxlength="300" placeholder="Personnel ou référence statistique exacte"></label><label>Année de référence<input id="eqIncomeYear" type="number" min="1900" max="2100" placeholder="Année"></label></div>
+<div class="v2-controls" id="savingControls" hidden><label>Taux d’épargne <output id="eqRateLabel">20 %</output><input id="eqRate" type="range" min="0" max="100" value="20"></label><p class="v2-note">Départ de zéro, revenu constant, sans rendement ni inflation. Choisissez un revenu net.</p></div>
+<p id="eqContext" class="v2-note"></p><div class="v2-grid" id="eqCards" aria-live="polite"></div>
+<div id="eqInfo" hidden><h2>À propos</h2><p>VANIT compare une somme à des repères de patrimoine et de revenu. Un multiple n’est ni un nombre de personnes, ni un rang statistique. Les calculs restent locaux ; les montants ne sont pas envoyés à un serveur.</p><h2>Sources</h2><p><a href="https://www.ubs.com/content/dam/assets/wm/static/noindex/gwr-2025-digital.pdf#page=18" target="_blank" rel="noopener">UBS Global Wealth Report 2025, page 18</a> · millésime des patrimoines : fin 2024. Jeu initial documenté, pas une mise à jour automatique.</p><p class="v2-note">Distributions : <a href="https://wid.world/data/">WID</a> · Salaires : <a href="https://www.oecd.org/fr/data/indicators/average-annual-wages.html">OCDE</a> · Changes : <a href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.eu.html">BCE</a>.</p><h2>Extensions prévues</h2><p>Alimentation et politiques : données non intégrées. Aucun coût universel de repas, patrimoine politique estimé ou agrégat continental n’est inventé.</p><p class="v2-note">Alimentation : <a href="https://www.wfp.org/publications/wfp-management-plan">PAM</a>, <a href="https://map.ipcinfo.org/population-tracking-tool">IPC</a> · Politiques : <a href="https://www.hatvp.fr/consulter-les-declarations/">HATVP</a>.</p><p style="margin-top:20px"><button type="button" id="advancedToggle" aria-expanded="false">Ouvrir le modèle historique démo</button></p></div>
+</section>
   </main>
 
   <script>
@@ -1137,7 +1162,7 @@
       { p: 99.999, label: "Top 0.001%", value: 254000000 },
       { p: 99.9999, label: "Top 0.0001%", value: 1000000000 }
     ];
-    const CAPITAL_PROMPT = "Enter your capital to star";
+    const CAPITAL_PROMPT = "Saisissez votre capital";
     const WORLD_STATUS_POINTS = [
       { value: 0, top: 100 },
       { value: 10000, top: 59 },
@@ -1354,7 +1379,7 @@
     function renderWorldStatus(usd) {
       const status = calculateWorldStatus(usd);
       $("wealthStatus").style.setProperty("--status-size", worldStatusSize(usd));
-      $("wealthStatus").innerHTML = `<strong>${renderWorldStatusLabel(status)}</strong>`;
+      $("wealthStatus").innerHTML = `<strong aria-hidden="true">${renderWorldStatusLabel(status)}</strong><span class="sr-only">Top ${status} — estimation de démonstration</span>`;
     }
 
     function renderCards(usd) {
@@ -1373,6 +1398,7 @@
           <p class="muted">${row.context.note}</p>
         </article>`;
       }).join("");
+      if (!rows.length) { $("readout").textContent = "Sélectionnez un territoire."; $("rankList").textContent = ""; $("compareTable").textContent = ""; $("heatmap").textContent = ""; return; }
       const easiest = rows.reduce((best, row) => row.local.percentile > best.local.percentile ? row : best, rows[0]);
       const hardest = rows.reduce((best, row) => row.local.percentile < best.local.percentile ? row : best, rows[0]);
       const nearest = rows.filter((row) => row.local.next).sort((a, b) => (a.local.next.value - usd) - (b.local.next.value - usd))[0] || rows[0];
@@ -1571,6 +1597,7 @@
       const currency = $("currency").value || "USD";
       const usd = clean($("capital").value) * FX[currency];
       renderScore(usd);
+      if (typeof renderEquivalences === "function") renderEquivalences();
       renderCards(usd);
       renderThresholds(usd);
       renderCurve(usd);
@@ -1610,12 +1637,14 @@
         renderCapitalPrompt();
         return;
       }
+      const start = capital.selectionStart || 0;
+      const digitsBefore = capital.value.slice(0, start).replace(/\D/g, "").length;
       const raw = clean(capital.value);
       capital.value = formatCapitalText(raw);
       renderCapitalGroups(raw);
-      requestAnimationFrame(() => {
-        capital.setSelectionRange(capital.value.length, capital.value.length);
-      });
+      let position = 0, count = 0;
+      while (position < capital.value.length && count < digitsBefore) { if (/\d/.test(capital.value[position])) count++; position++; }
+      capital.setSelectionRange(position, position);
     }
 
     function selectInitialZero() {
@@ -1685,4 +1714,88 @@
   </script>
 
 
-</body></html>
+<script>
+// Public reference snapshot: UBS Global Wealth Report 2025, p.18, end-2024 USD per adult.
+const EQ_COUNTRIES = [
+ {id:'fr',name:'France',continent:'Europe',median:146017,mean:301503},
+ {id:'ch',name:'Suisse',continent:'Europe',median:182248,mean:687166},
+ {id:'uk',name:'Royaume-Uni',continent:'Europe',median:176370,mean:339700},
+ {id:'us',name:'États-Unis',continent:'Amérique du Nord',median:124041,mean:620654},
+ {id:'jp',name:'Japon',continent:'Asie',median:102198,mean:205221},
+ {id:'au',name:'Australie',continent:'Océanie',median:268424,mean:516640}
+];
+let eqTab = 'wealth';
+const eqEl = id => document.getElementById(id);
+const eqEscape = value => String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const eqNum = value => new Intl.NumberFormat('fr-FR',{maximumFractionDigits:2}).format(value);
+const eqCard = (title,value,unit,body) => `<article class="v2-card"><h3>${title}</h3><strong>${value}</strong><small>${unit}</small><details><summary>Source et calcul</summary>${body}</details></article>`;
+function fillEqCountries(){
+ const previous=eqEl('eqCountry').value;
+ const countries=EQ_COUNTRIES.filter(c=>eqEl('eqContinent').value==='all'||c.continent===eqEl('eqContinent').value);
+ eqEl('eqCountry').innerHTML=countries.length?countries.map(c=>`<option value="${c.id}">${c.name}</option>`).join(''):'<option value="">Aucun pays documenté</option>';
+ if(countries.some(c=>c.id===previous))eqEl('eqCountry').value=previous;
+ renderEquivalences();
+}
+function renderEquivalences(){
+ if(!eqEl('eqCards'))return;
+ const currency=eqEl('currency').value;
+ const raw=eqEl('capital').value;
+ const hasAmount=/\d/.test(raw);
+ const amount=clean(raw);
+ const country=EQ_COUNTRIES.find(c=>c.id===eqEl('eqCountry').value);
+ const income=Number(eqEl('eqIncome').value);
+ const rate=Number(eqEl('eqRate').value)/100;
+ const date=eqEl('eqFxDate').value;
+ const url=eqEl('eqFxSource').value;
+ const validUrl=/^https?:\/\//i.test(url);
+ const fx=currency==='USD'?1:Number(eqEl('eqFx').value);
+ const fxReady=currency==='USD'||(fx>0&&Number.isFinite(fx)&&date&&validUrl);
+ eqEl('territoryControls').hidden=eqTab==='info';
+ eqEl('fxControls').hidden=eqTab!=='wealth'||currency==='USD';
+ eqEl('incomeControls').hidden=!['salary','saving'].includes(eqTab);
+ eqEl('savingControls').hidden=eqTab!=='saving';
+ eqEl('eqInfo').hidden=eqTab!=='info';
+ eqEl('eqCards').hidden=eqTab==='info';
+ eqEl('eqRateLabel').textContent=eqNum(rate*100)+' %';
+ eqEl('eqContext').textContent=eqTab==='info'?'':`${country?country.name:'Territoire sans données'} · ${hasAmount?eqNum(amount)+' '+currency:'Saisissez une somme'} · ${eqTab==='wealth'?'Patrimoine net par adulte, fin 2024':'Scénario saisi, non statistique officielle'}`;
+ if(eqTab==='info')return;
+ if(!hasAmount){eqEl('eqCards').innerHTML=eqCard('À vous de jouer','—','Saisissez une somme dans le champ principal.','<p>Le capital est partagé entre les rubriques ; aucune somme par défaut n’est imposée.</p>');return;}
+ if(eqTab==='wealth'){
+  if(!country){eqEl('eqCards').innerHTML=eqCard('Patrimoine','Indisponible','Aucun pays documenté dans ce filtre.','<p>Aucune moyenne continentale ni donnée de substitution.</p>');return;}
+  const converted=amount*fx;
+  const source=`<p><a href="https://www.ubs.com/content/dam/assets/wm/static/noindex/gwr-2025-digital.pdf#page=18" target="_blank" rel="noopener">UBS Global Wealth Report 2025, p.18</a> ; données fin 2024 ; consultées le 1 novembre 2026. Unité : patrimoine net par adulte en USD. Estimations UBS.</p>`;
+  const conversion=currency==='USD'?'<p>Aucune conversion ; somme interprétée en USD nominaux de référence 2024, sans correction d’inflation.</p>':`<p>Taux saisi : 1 ${currency} = ${eqEscape(fx)} USD ; date : ${eqEscape(date)}. <a href="${validUrl?eqEscape(url):'#'}" target="_blank" rel="noopener">Source du taux saisie</a>. Conversion nominale, sans correction d’inflation depuis 2024.</p>`;
+  eqEl('eqCards').innerHTML=['median','mean'].map(kind=>{
+   const denominator=country[kind];
+   const title=kind==='median'?'Patrimoines médians':'Patrimoines moyens';
+   return eqCard(title,fxReady?eqNum(converted/denominator)+' ×':'—',fxReady?`${eqNum(denominator)} USD par adulte · ${country.name}`:'Renseignez le taux, sa date et sa source.',source+`<p>Calcul : somme convertie en USD ÷ ${denominator} USD. Ce quotient compare des montants ; il ne compte pas des personnes.</p>`+conversion);
+  }).join('')+eqCard('Adultes sous votre capital','Indisponible','Distribution détaillée non intégrée.','<p>Une moyenne et une médiane ne permettent pas de calculer un percentile. Aucun percentile démo n’est repris ici.</p><p><a href="https://wid.world/data/">Données WID à sélectionner et harmoniser</a>.</p>');
+ }else{
+  const context=eqEscape(eqEl('eqIncomeSource').value||'Source non renseignée');
+  const year=eqEscape(eqEl('eqIncomeYear').value||'Année non renseignée');
+  const kind=eqEl('eqIncomeKind').selectedOptions[0].textContent;
+  const body=`<p>Référence fournie par l’utilisateur : ${context}. ${year}. ${eqEscape(kind)} ; ${eqNum(income)} ${currency}/an ; ${country?country.name:'territoire non documenté'}. Aucune référence nationale automatique.</p>`;
+  if(eqTab==='salary'){
+   eqEl('eqCards').innerHTML=eqCard('Années de revenu',income>0?eqNum(amount/income):'—',income>0?'années à 100 % du revenu':'Saisissez un revenu annuel positif.',body+`<p>Calcul : ${eqNum(amount)} ÷ ${eqNum(income)}. Ce quotient ignore dépenses et épargne ; il ne représente pas un délai d’accumulation.</p>`);
+  }else{
+   const gross=eqEl('eqIncomeKind').value==='gross';
+   const years=income>0&&rate>0?amount/(income*rate):null;
+   let result=gross?'—':income<=0?'—':rate===0?(amount===0?'0':'Non atteint'):eqNum(years);
+   eqEl('eqCards').innerHTML=eqCard('Temps pour accumuler',result,gross?'Sélectionnez un revenu net.':income<=0?'Saisissez un revenu net annuel positif.':'années · sans rendement ni inflation',body+`<p>Calcul : somme ÷ (revenu annuel net × ${eqNum(rate*100)} %). Départ de zéro, paramètres constants. À 0 % d’épargne, une cible positive n’est pas atteinte.</p>`)+eqCard('Épargne annuelle',income>0&&!gross?eqNum(income*rate)+' '+currency:'—','revenu net × taux d’épargne',body+`<p>${eqNum(income)} × ${eqNum(rate*100)} %.</p>`);
+  }
+ }
+}
+document.querySelectorAll('[data-eq]').forEach(button=>button.addEventListener('click',()=>{
+ eqTab=button.dataset.eq;
+ document.querySelectorAll('[data-eq]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+ renderEquivalences();
+}));
+eqEl('eqContinent').addEventListener('change',fillEqCountries);
+['eqCountry','eqFx','eqFxDate','eqFxSource','eqIncome','eqIncomeKind','eqIncomeSource','eqIncomeYear','eqRate'].forEach(id=>eqEl(id).addEventListener('input',renderEquivalences));
+// Currency rates must be entered again when the source currency changes.
+document.querySelectorAll('[data-currency]').forEach(b=>b.addEventListener('click',()=>{eqEl('eqFx').value='';eqEl('eqFxDate').value='';eqEl('eqFxSource').value='';renderEquivalences();}));
+eqEl('advancedToggle').addEventListener('click',()=>{const expanded=document.body.classList.toggle('advanced');eqEl('advancedToggle').setAttribute('aria-expanded',String(expanded));eqEl('advancedToggle').textContent=expanded?'Fermer le modèle historique démo':'Ouvrir le modèle historique démo';});
+fillEqCountries();
+
+</script></body></html>
+
