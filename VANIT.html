@@ -764,8 +764,8 @@
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
 .beta-page main>.v2-shell{display:block!important;width:100%;margin-top:12px}.beta-page .hero{gap:25px}.beta-page .beta-brand-label .name{font-size:clamp(76px,18vw,210px)}
 .beta-page .wealth-control{grid-template-columns:minmax(0,1fr) minmax(90px,27%);gap:8px}.beta-page .wealth-status{min-width:0}.beta-page .wealth-status strong{font-size:clamp(20px,5vw,60px)}
-.beta-page .wealth-group{font-size:clamp(9px,var(--group-size),6vw)}.beta-page .wealth-groups{padding:10px;gap:4px}.beta-page .wealth-group.is-placeholder{font-size:clamp(11px,2.6vw,35px)}
-#capital:focus{color:#fff;-webkit-text-fill-color:#fff;caret-color:#fff;font-size:clamp(16px,3vw,30px)}.wealth-field:focus-within .wealth-groups{visibility:hidden}
+.beta-page .wealth-field{container-type:inline-size}.beta-page .wealth-group{font-size:min(var(--group-size),calc(var(--group-ratio, .28) * 100cqw))}.beta-page .wealth-groups{padding:10px;gap:4px}.beta-page .wealth-group.is-placeholder{font-size:clamp(11px,2.6vw,35px)}
+#capital{text-align:right}.wealth-field.is-editing #capital,#capital[aria-invalid=true]{color:#fff;-webkit-text-fill-color:#fff;caret-color:#fff;font-size:clamp(16px,3vw,30px)}.wealth-field.is-editing .wealth-groups,.wealth-field:has(#capital[aria-invalid=true]) .wealth-groups{visibility:hidden}.wealth-field:focus-within{outline:1px solid #fff;outline-offset:2px}
 .v2-shell{--muted:#bfbfbf;--line:#424242;text-align:left}.v2-shell h2{font-size:clamp(23px,4vw,35px);font-weight:800;letter-spacing:-.03em;margin:20px 0}.v2-shell h3{font-size:13px;letter-spacing:.03em}
 .v2-nav{display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid #444;padding-bottom:16px}.v2-nav button,.v2-shell button{min-height:44px;border:1px solid #555;background:#080808;color:white;padding:10px 16px}.v2-nav button[aria-pressed=true]{background:#c53d2c;border-color:#c53d2c}
 .v2-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}.v2-controls input,.v2-controls select{background:#121212;color:white;border-color:#555;min-height:44px}.v2-shell label{font-size:11px!important;letter-spacing:.03em!important}
@@ -1670,6 +1670,22 @@ body[data-page=calcul] .v2-demo{margin-top:0}
       $("capitalGroups").innerHTML = `<span class="wealth-group is-placeholder" data-slot="prompt">${CAPITAL_PROMPT}</span>`;
     }
 
+    function syncCapitalEditing() {
+      const input = $("capital");
+      const editing = document.activeElement === input &&
+        (input.selectionStart !== input.value.length || input.selectionStart !== input.selectionEnd);
+      input.parentElement.classList.toggle("is-editing", editing);
+    }
+
+    function fitCapitalGroups() {
+      const groups = [...$("capitalGroups").children];
+      const sizes = groups.map(node => parseFloat(node.style.getPropertyValue("--group-size")));
+      const estimatedWidth = groups.reduce((width, node, index) =>
+        width + node.textContent.length * sizes[index] * .76, 0);
+      groups.forEach((node, index) =>
+        node.style.setProperty("--group-ratio", String(.82 * sizes[index] / estimatedWidth)));
+    }
+
     function formatCapitalInput() {
       const capital = $("capital");
       const raw = capital.value.trim();
@@ -1679,6 +1695,7 @@ body[data-page=calcul] .v2-demo{margin-top:0}
       error.hidden = !invalid;
       error.textContent = invalid ? "Saisissez un montant positif avec deux décimales au maximum." : "";
       capital.setAttribute("aria-invalid", String(invalid));
+      syncCapitalEditing();
       if (!raw || invalid) { renderCapitalPrompt(); return; }
       renderCapitalGroups(Math.trunc(amount));
       const fraction = raw.match(/[,.](\d+)$/);
@@ -1689,6 +1706,11 @@ body[data-page=calcul] .v2-demo{margin-top:0}
         node.textContent = "," + fraction[1];
         $("capitalGroups").appendChild(node);
       }
+      fitCapitalGroups();
+    }
+
+    for (const event of ["focus", "blur", "select", "keyup", "pointerup"]) {
+      $("capital").addEventListener(event, syncCapitalEditing);
     }
 
     function selectInitialZero() {
