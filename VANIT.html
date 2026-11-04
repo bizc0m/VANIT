@@ -792,7 +792,10 @@ body.advanced main>:not(.hero):not(.v2-shell){display:block}body.advanced .top-b
 .beta-page .wealth-control{grid-template-columns:minmax(0,1fr) minmax(90px,25%);gap:8px}
 .beta-page .wealth-status{min-width:0}
 .beta-page .wealth-status strong{font-size:clamp(17px,4.8vw,56px)}
-.beta-page .wealth-field,.beta-page .wealth-status{min-height:64px}
+.beta-page .wealth-field,.beta-page .wealth-status{min-height:clamp(88px,12vw,124px)}
+.beta-page .wealth-groups{justify-content:center;align-items:center;padding:10px}
+.beta-page #capital{text-align:center}
+.beta-page .wealth-field:focus-within .wealth-group:last-child{transform:none}
 .beta-page .currency-flag{min-width:54px;height:40px;padding:0 4px}
 .beta-page .currency-flags{gap:3px}
 #capitalError{color:#ff9d93;font-size:12px}
